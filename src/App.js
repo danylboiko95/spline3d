@@ -1,24 +1,48 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Layout from "./components/Layout";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
+import Some from "./components/Some/Some";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import "./fade.css";
 
-function App() {
+const AnimatedRoutes = (props) => {
+  const location = useLocation();
+
+  return (
+    <TransitionGroup>
+      <CSSTransition
+        key={location.pathname}
+        classNames="fadeTranslate"
+        timeout={600}
+        mountOnEnter={true}
+        unmountOnExit={true}
+      >
+        <Switch location={location}>
+          <Route exact path="/" component={Some} />
+          <Route exact path="/main" component={Layout} />
+        </Switch>
+      </CSSTransition>
+      
+    </TransitionGroup>
+  );
+};
+
+
+function App(props) {
+  let location = props.location;
   return (
     <div className="App">
-      <iframe
-        src="https://my.spline.design/libraryfloppy-f6a3a9eae4207ff6aa8f8c41e15c4c68/"
-        frameBorder="0"
-      ></iframe>
-
       <BrowserRouter>
-        <Switch>
-          <Route exact path={`/main`} component={Layout} />
-        </Switch>
-        <Layout />
+        <Route path="/" component={AnimatedRoutes} />
       </BrowserRouter>
     </div>
   );
 }
 
-export default App;
+const BasicExample = () => (
+  <BrowserRouter>
+    <Route path="/" component={App} />
+  </BrowserRouter>
+);
+export default BasicExample;
