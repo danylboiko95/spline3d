@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Layout from "./components/Layout";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <iframe
+        src="https://my.spline.design/libraryfloppy-f6a3a9eae4207ff6aa8f8c41e15c4c68/"
+        frameBorder="0"
+      ></iframe>
+
+      <BrowserRouter>
+        <Switch>
+          <Route exact path={`/main`} component={Layout} />
+        </Switch>
+        <Layout />
+      </BrowserRouter>
     </div>
   );
 }
